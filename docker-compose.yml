@@ -1,0 +1,26 @@
+services:
+  days:
+    # Tells Compose to build the image using the Dockerfile in the current directory
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # Names the resulting container so it's easy to identify
+    container_name: days
+
+    # Maps port 3000 on your host machine to port 3000 inside the container
+    ports:
+      - "3000:3000"
+
+    # Automatically injects everything from your local .env file into the container at runtime
+    env_file:
+      - .env
+
+    environment:
+      - TZ=Europe/Copenhagen
+
+    # Ensures the container restarts automatically if it crashes or if your computer reboots
+    restart: unless-stopped
+
+    volumes:
+      - ./db:/app/db
